@@ -1,0 +1,12 @@
+{
+  "editor.formatOnSave": true,
+  "[vue]": {
+    // "editor.defaultFormatter": "Vue"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
