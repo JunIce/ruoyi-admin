@@ -1,0 +1,12 @@
+.splitpanes {
+  .splitpanes__splitter {
+    &::before,
+    &::after {
+      background-color: rgba(var(--el-color-primary-rgb), 0.7)!important;
+    }
+
+    &:hover {
+      background-color: rgba(var(--el-color-primary-rgb), 0.2)!important;
+    }
+  }
+}
