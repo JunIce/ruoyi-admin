@@ -68,38 +68,27 @@
          <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
       </el-row>
 
-      <el-table v-loading="loading" :data="noticeList" @selection-change="handleSelectionChange">
+      <v-table v-loading="loading" :data="noticeList" @selection-change="handleSelectionChange">
          <el-table-column type="selection" width="55" align="center" />
-         <el-table-column label="序号" align="center" prop="noticeId" width="100" />
-         <el-table-column
-            label="公告标题"
-            align="center"
-            prop="noticeTitle"
-            :show-overflow-tooltip="true"
-         />
-         <el-table-column label="公告类型" align="center" prop="noticeType" width="100">
-            <template #default="scope">
+
+         <v-table-column :columns="columns">
+            <template #noticeType="scope">
                <dict-tag :options="sys_notice_type" :value="scope.row.noticeType" />
             </template>
-         </el-table-column>
-         <el-table-column label="状态" align="center" prop="status" width="100">
-            <template #default="scope">
+            <template #status="scope">
                <dict-tag :options="sys_notice_status" :value="scope.row.status" />
             </template>
-         </el-table-column>
-         <el-table-column label="创建者" align="center" prop="createBy" width="100" />
-         <el-table-column label="创建时间" align="center" prop="createTime" width="100">
-            <template #default="scope">
+            <template #createTime="scope">
                <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d}') }}</span>
             </template>
-         </el-table-column>
-         <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+         </v-table-column>
+         <el-table-column label="操作" fixed="right" width="150" class-name="small-padding fixed-width">
             <template #default="scope">
                <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['system:notice:edit']">修改</el-button>
                <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['system:notice:remove']" >删除</el-button>
             </template>
          </el-table-column>
-      </el-table>
+      </v-table>
 
       <pagination
          v-show="total > 0"
@@ -173,6 +162,14 @@ const single = ref(true);
 const multiple = ref(true);
 const total = ref(0);
 const title = ref("");
+
+const columns = ref([
+  { prop: "noticeTitle", label: "公告标题" },
+  { prop: "noticeType", label: "公告类型" },
+  { prop: "status", label: "状态" },
+  { prop: "createBy", label: "创建者" },
+  { prop: "createTime", label: "创建时间" }
+]);
 
 const data = reactive({
   form: {},

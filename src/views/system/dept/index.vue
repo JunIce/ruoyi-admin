@@ -47,7 +47,7 @@
          <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
       </el-row>
 
-      <el-table
+      <v-table
          v-if="refreshTable"
          v-loading="loading"
          :data="deptList"
@@ -55,26 +55,22 @@
          :default-expand-all="isExpandAll"
          :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
       >
-         <el-table-column prop="deptName" label="部门名称" width="260"></el-table-column>
-         <el-table-column prop="orderNum" label="排序" width="200"></el-table-column>
-         <el-table-column prop="status" label="状态" width="100">
-            <template #default="scope">
+         <v-table-column :columns="columns">
+            <template #status="scope">
                <dict-tag :options="sys_normal_disable" :value="scope.row.status" />
             </template>
-         </el-table-column>
-         <el-table-column label="创建时间" align="center" prop="createTime" width="200">
-            <template #default="scope">
+            <template #createTime="scope">
                <span>{{ parseTime(scope.row.createTime) }}</span>
             </template>
-         </el-table-column>
-         <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+         </v-table-column>
+         <el-table-column label="操作" fixed="right" width="250" class-name="small-padding fixed-width">
             <template #default="scope">
                <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['system:dept:edit']">修改</el-button>
                <el-button link type="primary" icon="Plus" @click="handleAdd(scope.row)" v-hasPermi="['system:dept:add']">新增</el-button>
                <el-button v-if="scope.row.parentId != 0" link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['system:dept:remove']">删除</el-button>
             </template>
          </el-table-column>
-      </el-table>
+      </v-table>
 
       <!-- 添加或修改部门对话框 -->
       <el-dialog :title="title" v-model="open" width="600px" append-to-body>
@@ -154,6 +150,13 @@ const title = ref("");
 const deptOptions = ref([]);
 const isExpandAll = ref(true);
 const refreshTable = ref(true);
+
+const columns = ref([
+  { prop: "deptName", label: "部门名称", visible: true },
+  { prop: "orderNum", label: "排序", visible: true },
+  { prop: "status", label: "状态", visible: true },
+  { prop: "createTime", label: "创建时间", visible: true },
+]);
 
 const data = reactive({
   form: {},

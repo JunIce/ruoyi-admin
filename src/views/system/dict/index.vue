@@ -101,35 +101,30 @@
          <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
       </el-row>
 
-      <el-table v-loading="loading" :data="typeList" @selection-change="handleSelectionChange">
+      <v-table v-loading="loading" :data="typeList" @selection-change="handleSelectionChange">
          <el-table-column type="selection" width="55" align="center" />
-         <el-table-column label="字典编号" align="center" prop="dictId" />
-         <el-table-column label="字典名称" align="center" prop="dictName" :show-overflow-tooltip="true"/>
-         <el-table-column label="字典类型" align="center" :show-overflow-tooltip="true">
-            <template #default="scope">
+
+         <v-table-column :columns="columns">
+            <template #dictType="scope">
                <router-link :to="'/system/dict-data/index/' + scope.row.dictId" class="link-type">
                   <span>{{ scope.row.dictType }}</span>
                </router-link>
             </template>
-         </el-table-column>
-         <el-table-column label="状态" align="center" prop="status">
-            <template #default="scope">
+            <template #status="scope">
                <dict-tag :options="sys_normal_disable" :value="scope.row.status" />
             </template>
-         </el-table-column>
-         <el-table-column label="备注" align="center" prop="remark" :show-overflow-tooltip="true" />
-         <el-table-column label="创建时间" align="center" prop="createTime" width="180">
-            <template #default="scope">
+            <template #createTime="scope">
                <span>{{ parseTime(scope.row.createTime) }}</span>
             </template>
-         </el-table-column>
+         </v-table-column>
+
          <el-table-column label="操作" align="center" width="160" class-name="small-padding fixed-width">
             <template #default="scope">
                <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['system:dict:edit']">修改</el-button>
                <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['system:dict:remove']">删除</el-button>
             </template>
          </el-table-column>
-      </el-table>
+      </v-table>
 
       <pagination
          v-show="total > 0"
@@ -188,6 +183,15 @@ const multiple = ref(true);
 const total = ref(0);
 const title = ref("");
 const dateRange = ref([]);
+
+const columns = ref([
+  { prop: "dictId", label: "字典编号", visible: true },
+  { prop: "dictName", label: "字典名称", visible: true },
+  { prop: "dictType", label: "字典类型", visible: true },
+  { prop: "status", label: "状态", visible: true },
+  { prop: "remark", label: "备注", visible: true },
+  { prop: "createTime", label: "创建时间", visible: true },
+]);
 
 const data = reactive({
   form: {},
