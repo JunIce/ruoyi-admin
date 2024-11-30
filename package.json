@@ -1,0 +1,40 @@
+{
+  "name": "ruoyi-admin",
+  "version": "0.0.1-alpha",
+  "description": "若依管理系统",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build:prod": "vite build",
+    "build:stage": "vite build --mode staging",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "2.3.1",
+    "@vueup/vue-quill": "1.2.0",
+    "@vueuse/core": "10.11.0",
+    "axios": "0.28.1",
+    "echarts": "5.5.1",
+    "element-plus": "^2.9.0",
+    "file-saver": "2.0.5",
+    "fuse.js": "6.6.2",
+    "js-cookie": "3.0.5",
+    "jsencrypt": "3.3.2",
+    "nprogress": "0.2.0",
+    "pinia": "2.1.7",
+    "splitpanes": "3.1.5",
+    "vue": "3.4.31",
+    "vue-cropper": "1.1.1",
+    "vue-router": "4.4.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "5.0.5",
+    "sass": "1.81.0",
+    "unplugin-auto-import": "0.17.6",
+    "unplugin-vue-setup-extend-plus": "1.0.1",
+    "vite": "5.3.2",
+    "vite-plugin-compression": "0.5.1",
+    "vite-plugin-svg-icons": "2.0.1"
+  }
+}
