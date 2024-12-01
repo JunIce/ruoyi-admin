@@ -1,6 +1,6 @@
 <template>
   <!-- 创建表 -->
-  <el-dialog title="创建表" v-model="visible" width="800px" top="5vh" append-to-body>
+  <v-dialog title="创建表" v-model="visible" width="800px" top="5vh" append-to-body>
     <span>创建表语句(支持多个建表语句)：</span>
     <el-input type="textarea" :rows="10" placeholder="请输入文本" v-model="content"></el-input>
     <template #footer>
@@ -9,7 +9,7 @@
         <el-button @click="visible = false">取 消</el-button>
       </div>
     </template>
-  </el-dialog>
+  </v-dialog>
 </template>
 
 <script setup>

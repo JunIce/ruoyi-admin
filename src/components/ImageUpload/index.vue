@@ -1,23 +1,12 @@
 <template>
   <div class="component-upload-image">
-    <el-upload
-      multiple
-      :action="uploadImgUrl"
-      list-type="picture-card"
-      :on-success="handleUploadSuccess"
-      :before-upload="handleBeforeUpload"
-      :limit="limit"
-      :on-error="handleUploadError"
-      :on-exceed="handleExceed"
-      ref="imageUpload"
-      :before-remove="handleDelete"
-      :show-file-list="true"
-      :headers="headers"
-      :file-list="fileList"
-      :on-preview="handlePictureCardPreview"
-      :class="{ hide: fileList.length >= limit }"
-    >
-      <el-icon class="avatar-uploader-icon"><plus /></el-icon>
+    <el-upload multiple :action="uploadImgUrl" list-type="picture-card" :on-success="handleUploadSuccess"
+      :before-upload="handleBeforeUpload" :limit="limit" :on-error="handleUploadError" :on-exceed="handleExceed"
+      ref="imageUpload" :before-remove="handleDelete" :show-file-list="true" :headers="headers" :file-list="fileList"
+      :on-preview="handlePictureCardPreview" :class="{ hide: fileList.length >= limit }">
+      <el-icon class="avatar-uploader-icon">
+        <plus />
+      </el-icon>
     </el-upload>
     <!-- 上传提示 -->
     <div class="el-upload__tip" v-if="showTip">
@@ -31,17 +20,9 @@
       的文件
     </div>
 
-    <el-dialog
-      v-model="dialogVisible"
-      title="预览"
-      width="800px"
-      append-to-body
-    >
-      <img
-        :src="dialogImageUrl"
-        style="display: block; max-width: 100%; margin: 0 auto"
-      />
-    </el-dialog>
+    <v-dialog v-model="dialogVisible" title="预览" width="800px" append-to-body>
+      <img :src="dialogImageUrl" style="display: block; max-width: 100%; margin: 0 auto" />
+    </v-dialog>
   </div>
 </template>
 
@@ -106,7 +87,7 @@ watch(() => props.modelValue, val => {
     fileList.value = [];
     return [];
   }
-},{ deep: true, immediate: true });
+}, { deep: true, immediate: true });
 
 // 上传前loading加载
 function handleBeforeUpload(file) {
@@ -211,6 +192,6 @@ function listToString(list, separator) {
 <style scoped lang="scss">
 // .el-upload--picture-card 控制加号部分
 :deep(.hide .el-upload--picture-card) {
-    display: none;
+  display: none;
 }
 </style>

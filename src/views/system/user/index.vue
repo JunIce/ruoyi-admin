@@ -108,7 +108,7 @@
     </el-row>
 
     <!-- 添加或修改用户配置对话框 -->
-    <el-dialog :title="title" v-model="open" width="600px" append-to-body>
+    <v-dialog :title="title" v-model="open" width="600px" append-to-body>
       <el-form :model="form" :rules="rules" ref="userRef" label-width="80px">
         <el-row>
           <el-col :span="12">
@@ -198,10 +198,10 @@
           <el-button @click="cancel">取 消</el-button>
         </div>
       </template>
-    </el-dialog>
+    </v-dialog>
 
     <!-- 用户导入对话框 -->
-    <el-dialog :title="upload.title" v-model="upload.open" width="400px" append-to-body>
+    <v-dialog :title="upload.title" v-model="upload.open" width="400px" append-to-body>
       <el-upload ref="uploadRef" :limit="1" accept=".xlsx, .xls" :headers="upload.headers"
         :action="upload.url + '?updateSupport=' + upload.updateSupport" :disabled="upload.isUploading"
         :on-progress="handleFileUploadProgress" :on-success="handleFileSuccess" :auto-upload="false" drag>
@@ -224,7 +224,7 @@
           <el-button @click="upload.open = false">取 消</el-button>
         </div>
       </template>
-    </el-dialog>
+    </v-dialog>
   </div>
 </template>
 
@@ -359,14 +359,14 @@ function handleDelete(row) {
   }).then(() => {
     getList();
     proxy.$modal.msgSuccess("删除成功");
-  }).catch(() => {});
+  }).catch(() => { });
 };
 
 /** 导出按钮操作 */
 function handleExport() {
   proxy.download("system/user/export", {
     ...queryParams.value,
-  },`user_${new Date().getTime()}.xlsx`);
+  }, `user_${new Date().getTime()}.xlsx`);
 };
 
 /** 用户状态修改  */
@@ -418,7 +418,7 @@ function handleResetPwd(row) {
     resetUserPwd(row.userId, value).then(response => {
       proxy.$modal.msgSuccess("修改成功，新密码是：" + value);
     });
-  }).catch(() => {});
+  }).catch(() => { });
 };
 
 /** 选择条数  */

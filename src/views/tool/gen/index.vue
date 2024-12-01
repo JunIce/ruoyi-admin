@@ -79,10 +79,10 @@
         </template>
       </el-table-column>
     </v-table>
-    <pagination v-show="total > 0" :total="total" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize"
-      @pagination="getList" />
+    <pagination v-show="total > 0" :total="total" v-model:page="queryParams.pageNum"
+      v-model:limit="queryParams.pageSize" @pagination="getList" />
     <!-- 预览界面 -->
-    <el-dialog :title="preview.title" v-model="preview.open" width="80%" top="5vh" append-to-body class="scrollbar">
+    <v-dialog :title="preview.title" v-model="preview.open" width="80%" top="5vh" append-to-body class="scrollbar">
       <el-tabs v-model="preview.activeName">
         <el-tab-pane v-for="(value, key) in preview.data"
           :label="key.substring(key.lastIndexOf('/') + 1, key.indexOf('.vm'))"
@@ -92,7 +92,7 @@
           <pre>{{ value }}</pre>
         </el-tab-pane>
       </el-tabs>
-    </el-dialog>
+    </v-dialog>
     <import-table ref="importRef" @ok="handleQuery" />
     <create-table ref="createRef" @ok="handleQuery" />
   </div>
@@ -185,7 +185,7 @@ function handleSynchDb(row) {
     return synchDb(tableName);
   }).then(() => {
     proxy.$modal.msgSuccess("同步成功");
-  }).catch(() => {});
+  }).catch(() => { });
 }
 
 /** 打开导入表弹窗 */
@@ -241,7 +241,7 @@ function handleDelete(row) {
   }).then(() => {
     getList();
     proxy.$modal.msgSuccess("删除成功");
-  }).catch(() => {});
+  }).catch(() => { });
 }
 
 getList();

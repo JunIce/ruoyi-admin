@@ -73,7 +73,7 @@
          v-model:limit="queryParams.pageSize" @pagination="getList" />
 
       <!-- 添加或修改参数配置对话框 -->
-      <el-dialog :title="title" v-model="open" width="500px" append-to-body>
+      <v-dialog :title="title" v-model="open" width="500px" append-to-body>
          <el-form ref="configRef" :model="form" :rules="rules" label-width="80px">
             <el-form-item label="参数名称" prop="configName">
                <el-input v-model="form.configName" placeholder="请输入参数名称" />
@@ -99,7 +99,7 @@
                <el-button @click="cancel">取 消</el-button>
             </div>
          </template>
-      </el-dialog>
+      </v-dialog>
    </div>
 </template>
 

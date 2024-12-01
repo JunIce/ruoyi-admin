@@ -77,7 +77,7 @@
          v-model:limit="queryParams.pageSize" @pagination="getList" />
 
       <!-- 调度日志详细 -->
-      <el-dialog title="调度日志详细" v-model="open" width="700px" append-to-body>
+      <v-dialog title="调度日志详细" v-model="open" width="700px" append-to-body>
          <el-form :model="form" label-width="100px">
             <el-row>
                <el-col :span="12">
@@ -110,7 +110,7 @@
                <el-button @click="open = false">关 闭</el-button>
             </div>
          </template>
-      </el-dialog>
+      </v-dialog>
    </div>
 </template>
 
@@ -132,96 +132,96 @@ const dateRange = ref([]);
 const route = useRoute();
 
 const data = reactive({
-  form: {},
-  queryParams: {
-    pageNum: 1,
-    pageSize: 10,
-    dictName: undefined,
-    dictType: undefined,
-    status: undefined
-  }
+   form: {},
+   queryParams: {
+      pageNum: 1,
+      pageSize: 10,
+      dictName: undefined,
+      dictType: undefined,
+      status: undefined
+   }
 });
 
 const { queryParams, form, rules } = toRefs(data);
 
 /** 查询调度日志列表 */
 function getList() {
-  loading.value = true;
-  listJobLog(proxy.addDateRange(queryParams.value, dateRange.value)).then(response => {
-    jobLogList.value = response.rows;
-    total.value = response.total;
-    loading.value = false;
-  });
+   loading.value = true;
+   listJobLog(proxy.addDateRange(queryParams.value, dateRange.value)).then(response => {
+      jobLogList.value = response.rows;
+      total.value = response.total;
+      loading.value = false;
+   });
 }
 
 // 返回按钮
 function handleClose() {
-  const obj = { path: "/monitor/job" };
-  proxy.$tab.closeOpenPage(obj);
+   const obj = { path: "/monitor/job" };
+   proxy.$tab.closeOpenPage(obj);
 }
 
 /** 搜索按钮操作 */
 function handleQuery() {
-  queryParams.value.pageNum = 1;
-  getList();
+   queryParams.value.pageNum = 1;
+   getList();
 }
 
 /** 重置按钮操作 */
 function resetQuery() {
-  dateRange.value = [];
-  proxy.resetForm("queryRef");
-  handleQuery();
+   dateRange.value = [];
+   proxy.resetForm("queryRef");
+   handleQuery();
 }
 
 // 多选框选中数据
 function handleSelectionChange(selection) {
-  ids.value = selection.map(item => item.jobLogId);
-  multiple.value = !selection.length;
+   ids.value = selection.map(item => item.jobLogId);
+   multiple.value = !selection.length;
 }
 
 /** 详细按钮操作 */
 function handleView(row) {
-  open.value = true;
-  form.value = row;
+   open.value = true;
+   form.value = row;
 }
 
 /** 删除按钮操作 */
 function handleDelete(row) {
-  proxy.$modal.confirm('是否确认删除调度日志编号为"' + ids.value + '"的数据项?').then(function () {
-    return delJobLog(ids.value);
-  }).then(() => {
-    getList();
-    proxy.$modal.msgSuccess("删除成功");
-  }).catch(() => {});
+   proxy.$modal.confirm('是否确认删除调度日志编号为"' + ids.value + '"的数据项?').then(function () {
+      return delJobLog(ids.value);
+   }).then(() => {
+      getList();
+      proxy.$modal.msgSuccess("删除成功");
+   }).catch(() => { });
 }
 
 /** 清空按钮操作 */
 function handleClean() {
-  proxy.$modal.confirm("是否确认清空所有调度日志数据项?").then(function () {
-    return cleanJobLog();
-  }).then(() => {
-    getList();
-    proxy.$modal.msgSuccess("清空成功");
-  }).catch(() => {});
+   proxy.$modal.confirm("是否确认清空所有调度日志数据项?").then(function () {
+      return cleanJobLog();
+   }).then(() => {
+      getList();
+      proxy.$modal.msgSuccess("清空成功");
+   }).catch(() => { });
 }
 
 /** 导出按钮操作 */
 function handleExport() {
-  proxy.download("monitor/jobLog/export", {
-    ...queryParams.value,
-  }, `job_log_${new Date().getTime()}.xlsx`);
+   proxy.download("monitor/jobLog/export", {
+      ...queryParams.value,
+   }, `job_log_${new Date().getTime()}.xlsx`);
 }
 
 (() => {
-  const jobId = route.params && route.params.jobId;
-  if (jobId !== undefined && jobId != 0) {
-    getJob(jobId).then(response => {
-      queryParams.value.jobName = response.data.jobName;
-      queryParams.value.jobGroup = response.data.jobGroup;
+   const jobId = route.params && route.params.jobId;
+   if (jobId !== undefined && jobId != 0) {
+      getJob(jobId).then(response => {
+         queryParams.value.jobName = response.data.jobName;
+         queryParams.value.jobGroup = response.data.jobGroup;
+         getList();
+      });
+   } else {
       getList();
-    });
-  } else {
-    getList();
-  }
+   }
 })();
 </script>

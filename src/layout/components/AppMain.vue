@@ -3,7 +3,7 @@
     <router-view v-slot="{ Component, route }">
       <transition name="fade-transform" mode="out-in">
         <keep-alive :include="tagsViewStore.cachedViews">
-          <component v-if="!route.meta.link" :is="Component" :key="route.path"/>
+          <component v-if="!route.meta.link" :is="Component" :key="route.path" />
         </keep-alive>
       </transition>
     </router-view>
@@ -42,7 +42,7 @@ function addIframe() {
   overflow: hidden;
 }
 
-.fixed-header + .app-main {
+.fixed-header+.app-main {
   padding-top: 50px;
 }
 
@@ -52,14 +52,14 @@ function addIframe() {
     min-height: calc(100vh - 84px);
   }
 
-  .fixed-header + .app-main {
+  .fixed-header+.app-main {
     padding-top: 84px;
   }
 }
 </style>
 
 <style lang="scss">
-// fix css style bug in open el-dialog
+// fix css style bug in open v-dialog
 .el-popup-parent--hidden {
   .fixed-header {
     padding-right: 6px;
@@ -80,4 +80,3 @@ function addIframe() {
   border-radius: 3px;
 }
 </style>
-

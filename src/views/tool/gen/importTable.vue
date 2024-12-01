@@ -1,6 +1,6 @@
 <template>
   <!-- 导入表 -->
-  <el-dialog title="导入表" v-model="visible" width="800px" top="5vh" append-to-body>
+  <v-dialog title="导入表" v-model="visible" width="800px" top="5vh" append-to-body>
     <el-form :model="queryParams" ref="queryRef" :inline="true">
       <el-form-item label="表名称" prop="tableName">
         <el-input v-model="queryParams.tableName" placeholder="请输入表名称" clearable style="width: 180px"
@@ -33,7 +33,7 @@
         <el-button @click="visible = false">取 消</el-button>
       </div>
     </template>
-  </el-dialog>
+  </v-dialog>
 </template>
 
 <script setup>

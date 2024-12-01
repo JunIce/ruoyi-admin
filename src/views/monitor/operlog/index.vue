@@ -82,7 +82,7 @@
          v-model:limit="queryParams.pageSize" @pagination="getList" />
 
       <!-- 操作日志详细 -->
-      <el-dialog title="操作日志详细" v-model="open" width="800px" append-to-body>
+      <v-dialog title="操作日志详细" v-model="open" width="800px" append-to-body>
          <el-form :model="form" label-width="100px">
             <el-row>
                <el-col :span="12">
@@ -133,7 +133,7 @@
                <el-button @click="open = false">关 闭</el-button>
             </div>
          </template>
-      </el-dialog>
+      </v-dialog>
    </div>
 </template>
 
