@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-row :gutter="20">
+    <el-row :gutter="20" class="h-full">
       <splitpanes :horizontal="appStore.device === 'mobile'" class="default-theme">
         <!--部门数据-->
         <pane size="16">

@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 
 import Cookies from 'js-cookie'
 
-
+import "virtual:uno.css";
 import ElementPlus from 'element-plus'
 import './assets/styles/element.scss'
 import locale from 'element-plus/es/locale/lang/zh-cn'
