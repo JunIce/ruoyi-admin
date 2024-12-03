@@ -34,7 +34,7 @@
 </template>
 <script>
 export default {
-    name: 'HtDialog',
+    name: 'VDialog',
     data() {
         return {
             fullscreen: this.fullscreen,
