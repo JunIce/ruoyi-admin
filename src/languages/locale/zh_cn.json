@@ -1,0 +1,17 @@
+{
+  "login": {
+    "title": "登 录",
+    "loading": "登 录 中...",
+    "title1": "若依后台管理系统",
+    "register": "立即注册",
+    "forget": "忘记密码",
+    "username": "用户名",
+    "password": "密码",
+    "code": "验证码",
+    "login": "登 录",
+    "remember": "记住密码",
+    "other": "其他登录方式",
+    "tips": "请输入您的账号密码",
+    "copyright": "Copyright © 2024 若依 All Rights Reserved."
+  }
+}

@@ -26,6 +26,7 @@
     "splitpanes": "3.1.5",
     "vue": "3.4.31",
     "vue-cropper": "1.1.1",
+    "vue-i18n": "10",
     "vue-router": "4.4.0"
   },
   "devDependencies": {

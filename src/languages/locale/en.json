@@ -1,0 +1,17 @@
+{
+  "login": {
+    "title": "Login",
+    "loading": "Logging in...",
+    "title1": "RuoYi Admin",
+    "register": "Register",
+    "forget": "Forget Password",
+    "username": "Username",
+    "password": "Password",
+    "code": "Code",
+    "login": "Login",
+    "remember": "Remember password",
+    "other": "Other Login",
+    "tips": "Please enter your account password",
+    "copyright": "Copyright © 2024 RuoYi All Rights Reserved."
+  }
+}
