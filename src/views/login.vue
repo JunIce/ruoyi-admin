@@ -14,7 +14,7 @@
       </el-form-item>
       <el-form-item prop="password">
         <el-input v-model="loginForm.password" type="password" size="large" auto-complete="off"
-          :placeholder="$t('login.password')" @keyup.enter="handleLogin">
+          :placeholder="$t('login.password')" @keyup.enter="handleLogin" show-password>
           <template #prefix><svg-icon icon-class="password" class="el-input__icon input-icon" /></template>
         </el-input>
       </el-form-item>
