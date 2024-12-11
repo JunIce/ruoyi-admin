@@ -32,43 +32,31 @@
     </div>
 </template>
 <script>
-// import { Bell } from "@element-plus/icons-vue"
+import { ElMessage } from "element-plus"
 import List from "./List.vue"
 
 const notifyData = [
     {
-        avatar: "https://gw.alipayobjects.com/zos/rmsportal/OKJXDXrmkNshAMvwtvhu.png",
-        title: "V3 Admin Vite 上线啦",
+        avatar: "https://iconfont.alicdn.com/p/illus_3d/file/ZsWruISgVCKK/6b56e558-c360-43e2-8e76-d897146c954f.png",
+        title: "ruoyi-admin",
         datetime: "两年前",
-        description: "一个免费开源的中后台管理系统基础解决方案，基于 Vue3、TypeScript、Element Plus、Pinia 和 Vite 等主流技术"
+        description: "一个免费开源的中后台管理系统基础解决方案，基于 Vue3、Element Plus 和 Pinia"
     },
     {
-        avatar: "https://gw.alipayobjects.com/zos/rmsportal/OKJXDXrmkNshAMvwtvhu.png",
-        title: "V3 Admin 上线啦",
+        avatar: "https://iconfont.alicdn.com/p/illus_3d/file/ZsWruISgVCKK/6b56e558-c360-43e2-8e76-d897146c954f.png",
+        title: "ruoyi-admin",
         datetime: "三年前",
-        description: "一个中后台管理系统基础解决方案，基于 Vue3、TypeScript、Element Plus 和 Pinia"
+        description: "一个中后台管理系统基础解决方案，基于 Vue3、Element Plus 和 Pinia"
     }
 ]
 
 const messageData = [
     {
-        avatar: "https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png",
-        title: "来自楚门的世界",
-        description: "如果再也不能见到你，祝你早安、午安和晚安",
-        datetime: "1998-06-05"
+        avatar: "https://iconfont.alicdn.com/p/illus_3d/file/ZsWruISgVCKK/0a782364-de90-4fc2-b832-898efbd579d5.png",
+        title: "ABCD",
+        description: "生活就像这个通知组件，有时会收到好消息，有时会收到坏消息，还有待办的任务。但重要的是，我们要学会像这个组件一样，把所有的信息都妥善管理起来，分类处理，及时响应。不要让通知堆积成山，也不要对重要的信息视而不见。生活中的每一个提醒，都是让我们成长的机会",
+        datetime: "2024-12-11"
     },
-    {
-        avatar: "https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png",
-        title: "来自大话西游",
-        description: "如果非要在这份爱上加上一个期限，我希望是一万年",
-        datetime: "1995-02-04"
-    },
-    {
-        avatar: "https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png",
-        title: "来自龙猫",
-        description: "心存善意，定能途遇天使",
-        datetime: "1988-04-16"
-    }
 ]
 
 const todoData = [
@@ -93,6 +81,10 @@ const todoData = [
 ]
 
 export default {
+    name: "NoticeBar",
+    components: {
+        List
+    },
     data() {
         return {
             badgeMax: 99,
@@ -127,14 +119,21 @@ export default {
     },
     methods: {
         handleHistory() {
-            this.$success(`跳转到${this.activeName}历史页面`)
+            ElMessage.success(`跳转到${this.activeName}历史页面`)
+            this.$router.push({
+                path: "/system/notice",
+                query: {
+                    type: this.activeName
+                }
+            })
         }
     }
 }
 </script>
 <style lang="scss" scoped>
 .notify {
-    margin-right: 10px;
+    padding: 0 8px;
+    cursor: pointer;
 }
 
 .notify-history {

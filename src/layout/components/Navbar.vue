@@ -134,8 +134,8 @@ function setLayout() {
   .right-menu {
     float: right;
     height: 100%;
-    line-height: 50px;
     display: flex;
+    align-items: center;
 
     &:focus {
       outline: none;
@@ -144,7 +144,6 @@ function setLayout() {
     .right-menu-item {
       display: inline-block;
       padding: 0 8px;
-      height: 100%;
       font-size: 18px;
       color: #5a5e66;
       vertical-align: text-bottom;
