@@ -22,9 +22,13 @@
 }
 
 .small-padding {
-  .cell {
+  :deep(.cell) {
     padding-left: 5px;
     padding-right: 5px;
+
+    .el-button + .el-button {
+      margin-left: 4px;
+    }
   }
 }
 
@@ -69,7 +73,7 @@
 // dropdown
 .el-dropdown-menu {
   a {
-    display: block
+    display: block;
   }
 }
 
@@ -91,6 +95,6 @@
   display: none;
 }
 
-.el-dropdown .el-dropdown-link{
+.el-dropdown .el-dropdown-link {
   color: var(--el-color-primary) !important;
 }

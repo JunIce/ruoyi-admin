@@ -29,7 +29,7 @@ export default {
   --el-table-current-row-bg-color: #c2d4ea;
   --el-fill-color-lighter: #eef5fe;
   color: #3d5973;
-
+  --el-table-tr-bg-color: var(--current-bg-color);
 
 
 
