@@ -43,11 +43,11 @@
          </v-table-column>
          <el-table-column label="操作" fixed="right" width="200">
             <template #default="scope">
-               <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)"
+               <el-button link size="small" type="primary" icon="Edit" @click="handleUpdate(scope.row)"
                   v-hasPermi="['system:menu:edit']">修改</el-button>
-               <el-button link type="primary" icon="Plus" @click="handleAdd(scope.row)"
+               <el-button link size="small" type="primary" icon="Plus" @click="handleAdd(scope.row)"
                   v-hasPermi="['system:menu:add']">新增</el-button>
-               <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)"
+               <el-button link size="small" type="primary" icon="Delete" @click="handleDelete(scope.row)"
                   v-hasPermi="['system:menu:remove']">删除</el-button>
             </template>
          </el-table-column>
@@ -276,7 +276,6 @@ const data = reactive({
 });
 
 const columns = ref([
-   { prop: "menuId", label: "菜单编号", visible: true },
    { prop: "menuName", label: "菜单名称", visible: true },
    { prop: "icon", label: "菜单图标", visible: true },
    { prop: "menuType", label: "菜单类型", visible: true },
