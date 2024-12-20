@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build:prod": "vite build",
-    "build:stage": "vite build --mode staging",
+    "build:prod": "vite build && node scripts/postbuild.js",
+    "build:stage": "vite build --mode staging && node scripts/postbuild.js",
     "preview": "vite preview"
   },
   "dependencies": {
