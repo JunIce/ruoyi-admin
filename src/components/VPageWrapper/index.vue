@@ -1,6 +1,9 @@
 <template>
     <div class="page-table-wrapper h-full" ref="pageTableWrapper">
-        <slot :height="pageTableWrapperHeight"></slot>
+        <div ref="pageSearchWrapperRef">
+            <slot name="header"></slot>
+        </div>
+        <slot name="default" :height="pageTableWrapperHeight"></slot>
     </div>
 </template>
 <script>
@@ -25,21 +28,30 @@ export default {
             this.getPageTableWrapperHeight()
         },
         getPageTableWrapperHeight() {
-            this.pageTableWrapperHeight = this.$refs.pageTableWrapper?.clientHeight
+            this.pageTableWrapperHeight = this.$refs.pageTableWrapper?.clientHeight - (this.$refs.pageSearchWrapperRef?.clientHeight || 0)
         },
         events() {
             this.$bus.$on('update:pageTableHeight', this.getPageTableWrapperHeight)
         },
         observeHeight() {
             let parentElement = this.$refs.pageTableWrapper
+            let searchElement = this.$refs.pageSearchWrapperRef
             const resizeObserver = new ResizeObserver(throttle((entries) => {
                 for (let entry of entries) {
                     if (entry.target === parentElement) {
                         this.getPageTableWrapperHeight()
                     }
+                    if (entry.target === searchElement) {
+                        this.getPageTableWrapperHeight()
+                    }
                 }
             }, 66));
-            parentElement && resizeObserver.observe(parentElement);
+            if (parentElement) {
+                resizeObserver.observe(parentElement);
+            }
+            if (searchElement) {
+                resizeObserver.observe(searchElement);
+            }
             this.resizeObserver = resizeObserver
         },
         unobserveHeight() {
