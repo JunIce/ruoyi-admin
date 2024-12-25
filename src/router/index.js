@@ -82,6 +82,12 @@ export const constantRoutes = [
         name: "Video",
         meta: { title: "视频", icon: "file" },
       },
+      {
+        path: "nvr",
+        component: () => import("@/views/nvr/index"),
+        name: "Nvr",
+        meta: { title: "录像机监控", icon: "file" },
+      },
     ],
     meta: { title: "公共组件", icon: "file" },
   },
