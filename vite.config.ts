@@ -24,7 +24,15 @@ export default defineConfig(({ mode, command }) => {
       extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json", ".vue"],
     },
     optimizeDeps: {
-      exclude: ["@ffmpeg/ffmpeg", "@ffmpeg/util"],
+      exclude: ["@ffmpeg/ffmpeg", "@ffmpeg/util", "PlayerControl"],
+    },
+    build: {
+      rollupOptions: {
+        external: ["/module/PlayerControl.js"],
+      },
+      commonjsOptions: {
+        exclude: ["PlayerControl"],
+      },
     },
     // vite 相关配置
     server: {
