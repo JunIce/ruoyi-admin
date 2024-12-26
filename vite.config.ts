@@ -36,9 +36,10 @@ export default defineConfig(({ mode, command }) => {
     },
     // vite 相关配置
     server: {
-      port: 8088,
-      host: true,
-      open: true,
+      port: 1420,
+      strictPort: true,
+      // host: true,
+      // open: true,
       proxy: {
         // https://cn.vitejs.dev/config/#server-proxy
         "/dev-api": {
@@ -48,6 +49,9 @@ export default defineConfig(({ mode, command }) => {
         },
       },
     },
+    // to make use of `TAURI_DEBUG` and other env variables
+    // https://tauri.studio/v1/api/config#buildconfig.beforedevcommand
+    envPrefix: ["VITE_", "TAURI_"],
     //fix:error:stdin>:7356:1: warning: "@charset" must be the first rule in the file
     css: {
       postcss: {

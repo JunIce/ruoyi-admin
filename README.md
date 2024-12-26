@@ -37,6 +37,30 @@ yarn build:prod or npm run build:prod
 
 - 视频转码进度条
 
+## Tauri
+
+rust 开发环境配置
+
+> https://tauri.app/start/prerequisites/#windows
+
+### 配置
+
+- 修改 vite.config.ts 中的 server.port 配置
+
+必须配置成`1420`，否则不能启动
+
+### 开发
+
+```bash
+npm run tauri:dev
+```
+
+### 打包
+
+```bash
+npm run tauri:build
+```
+
 ## References
 
 [RuoYi-Vue3](https://github.com/yangzongzhuan/RuoYi-Vue3.git)
