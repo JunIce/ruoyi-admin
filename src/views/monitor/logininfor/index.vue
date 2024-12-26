@@ -45,18 +45,19 @@
          <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
       </el-row>
 
-      <v-table ref="logininforRef" v-loading="loading" :data="logininforList" @selection-change="handleSelectionChange"
-         :default-sort="defaultSort" @sort-change="handleSortChange">
+      <v-table-v2 ref="logininforRef" v-loading="loading" :data="logininforList" :height="500" :width="1680"
+         :columns="columns" @selection-change="handleSelectionChange" :default-sort="defaultSort"
+         @sort-change="handleSortChange">
          <el-table-column type="selection" width="55" align="center" />
-         <v-table-column :columns="columns">
+         <!-- <v-table-column :columns="columns">
             <template #status="scope">
                <dict-tag :options="sys_common_status" :value="scope.row.status" />
             </template>
-            <template #loginTime="scope">
+<template #loginTime="scope">
                <span>{{ parseTime(scope.row.loginTime) }}</span>
             </template>
-         </v-table-column>
-      </v-table>
+</v-table-column> -->
+      </v-table-v2>
 
       <pagination v-show="total > 0" :total="total" v-model:page="queryParams.pageNum"
          v-model:limit="queryParams.pageSize" @pagination="getList" />
@@ -65,6 +66,11 @@
 
 <script setup name="Logininfor">
 import { list, delLogininfor, cleanLogininfor, unlockLogininfor } from "@/api/monitor/logininfor";
+import { h } from "vue";
+import { ElCheckbox } from "element-plus";
+import { parseTime } from '@/utils/ruoyi'
+import DictTag from '@/components/DictTag'
+import { useDict } from '@/utils/dict'
 
 const { proxy } = getCurrentInstance();
 const { sys_common_status } = proxy.useDict("sys_common_status");
@@ -82,134 +88,162 @@ const defaultSort = ref({ prop: "loginTime", order: "descending" });
 
 const columns = ref([
    {
+      prop: 'selection',
+      width: "50",
+      cellRenderer: ({ rowData }) => {
+         return h(ElCheckbox, {
+            modelValue: rowData.selection,
+            onChange: (e) => {
+               rowData.selection = e.target.checked;
+            }
+         })
+      }
+   },
+   {
       label: "访问编号",
       prop: "infoId",
+      width: "150",
    },
    {
       label: "用户名称",
       prop: "userName",
       sortable: "custom",
       sortOrders: ["descending", "ascending"],
+      width: "150",
    },
    {
       label: "地址",
       prop: "ipaddr",
+      width: "130",
    },
    {
       label: "登录地点",
       prop: "loginLocation",
+      width: "130",
    },
    {
       label: "操作系统",
       prop: "os",
+      width: "100",
    },
    {
       label: "浏览器",
       prop: "browser",
+      width: "100",
    },
    {
       label: "登录状态",
       prop: "status",
+      width: "130",
    },
    {
       label: "描述",
       prop: "msg",
+      width: "150",
    },
    {
       label: "访问时间",
       prop: "loginTime",
       sortable: "custom",
       sortOrders: ["descending", "ascending"],
+      width: "150",
+      cellRenderer: ({ cellData }) => {
+         return parseTime(cellData)
+      }
    },
 
-])
+].map(item => {
+   item.title = item.label;
+   item.dataKey = item.prop;
+   return item;
+}))
 
 // 查询参数
 const queryParams = ref({
-  pageNum: 1,
-  pageSize: 10,
-  ipaddr: undefined,
-  userName: undefined,
-  status: undefined,
-  orderByColumn: undefined,
-  isAsc: undefined
+   pageNum: 1,
+   pageSize: 20,
+   ipaddr: undefined,
+   userName: undefined,
+   status: undefined,
+   orderByColumn: undefined,
+   isAsc: undefined
 });
 
 /** 查询登录日志列表 */
 function getList() {
-  loading.value = true;
-  list(proxy.addDateRange(queryParams.value, dateRange.value)).then(response => {
-    logininforList.value = response.rows;
-    total.value = response.total;
-    loading.value = false;
-  });
+   loading.value = true;
+   list(proxy.addDateRange(queryParams.value, dateRange.value)).then(response => {
+      logininforList.value = response.rows;
+      total.value = response.total;
+      loading.value = false;
+   });
 }
 
 /** 搜索按钮操作 */
 function handleQuery() {
-  queryParams.value.pageNum = 1;
-  getList();
+   queryParams.value.pageNum = 1;
+   getList();
 }
 
 /** 重置按钮操作 */
 function resetQuery() {
-  dateRange.value = [];
-  proxy.resetForm("queryRef");
-  queryParams.value.pageNum = 1;
-  proxy.$refs["logininforRef"].sort(defaultSort.value.prop, defaultSort.value.order);
+   dateRange.value = [];
+   proxy.resetForm("queryRef");
+   queryParams.value.pageNum = 1;
+   proxy.$refs["logininforRef"].sort(defaultSort.value.prop, defaultSort.value.order);
 }
 
 /** 多选框选中数据 */
 function handleSelectionChange(selection) {
-  ids.value = selection.map(item => item.infoId);
-  multiple.value = !selection.length;
-  single.value = selection.length != 1;
-  selectName.value = selection.map(item => item.userName);
+   ids.value = selection.map(item => item.infoId);
+   multiple.value = !selection.length;
+   single.value = selection.length != 1;
+   selectName.value = selection.map(item => item.userName);
 }
 
 /** 排序触发事件 */
 function handleSortChange(column, prop, order) {
-  queryParams.value.orderByColumn = column.prop;
-  queryParams.value.isAsc = column.order;
-  getList();
+   queryParams.value.orderByColumn = column.prop;
+   queryParams.value.isAsc = column.order;
+   getList();
 }
 
 /** 删除按钮操作 */
 function handleDelete(row) {
-  const infoIds = row.infoId || ids.value;
-  proxy.$modal.confirm('是否确认删除访问编号为"' + infoIds + '"的数据项?').then(function () {
-    return delLogininfor(infoIds);
-  }).then(() => {
-    getList();
-    proxy.$modal.msgSuccess("删除成功");
-  }).catch(() => {});
+   const infoIds = row.infoId || ids.value;
+   proxy.$modal.confirm('是否确认删除访问编号为"' + infoIds + '"的数据项?').then(function () {
+      return delLogininfor(infoIds);
+   }).then(() => {
+      getList();
+      proxy.$modal.msgSuccess("删除成功");
+   }).catch(() => { });
 }
 
 /** 清空按钮操作 */
 function handleClean() {
-  proxy.$modal.confirm("是否确认清空所有登录日志数据项?").then(function () {
-    return cleanLogininfor();
-  }).then(() => {
-    getList();
-    proxy.$modal.msgSuccess("清空成功");
-  }).catch(() => {});
+   proxy.$modal.confirm("是否确认清空所有登录日志数据项?").then(function () {
+      return cleanLogininfor();
+   }).then(() => {
+      getList();
+      proxy.$modal.msgSuccess("清空成功");
+   }).catch(() => { });
 }
 
 /** 解锁按钮操作 */
 function handleUnlock() {
-  const username = selectName.value;
-  proxy.$modal.confirm('是否确认解锁用户"' + username + '"数据项?').then(function () {
-    return unlockLogininfor(username);
-  }).then(() => {
-    proxy.$modal.msgSuccess("用户" + username + "解锁成功");
-  }).catch(() => {});
+   const username = selectName.value;
+   proxy.$modal.confirm('是否确认解锁用户"' + username + '"数据项?').then(function () {
+      return unlockLogininfor(username);
+   }).then(() => {
+      proxy.$modal.msgSuccess("用户" + username + "解锁成功");
+   }).catch(() => { });
 }
 
 /** 导出按钮操作 */
 function handleExport() {
-  proxy.download("monitor/logininfor/export", {
-    ...queryParams.value,
-  }, `logininfor_${new Date().getTime()}.xlsx`);
+   proxy.download("monitor/logininfor/export", {
+      ...queryParams.value,
+   }, `logininfor_${new Date().getTime()}.xlsx`);
 }
 
 getList();
