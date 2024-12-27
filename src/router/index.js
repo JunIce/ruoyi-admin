@@ -88,6 +88,12 @@ export const constantRoutes = [
         name: "Nvr",
         meta: { title: "录像机监控", icon: "file" },
       },
+      {
+        path: "notice",
+        component: () => import("@/views/demo/notice/index.vue"),
+        name: "DemoNotice",
+        meta: { title: "消息通知", icon: "file" },
+      },
     ],
     meta: { title: "公共组件", icon: "file" },
   },
