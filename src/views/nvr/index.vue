@@ -19,6 +19,20 @@
         </el-form>
 
         <div>
+          <el-form :model="form" label-width="80px">
+            <el-form-item prop="username" label="用户名">
+              <el-input v-model="username" style="width: 220px"></el-input>
+            </el-form-item>
+            <el-form-item prop="password" label="密码">
+              <el-input v-model="password" style="width: 220px"></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="login">登 录</el-button>
+            </el-form-item>
+          </el-form>
+        </div>
+
+        <div>
           <el-table :data="list" border :max-height="600" :height="600">
             <el-table-column label="索引" type="index" width="60"></el-table-column>
             <el-table-column label="时间" prop="time">
@@ -96,21 +110,23 @@ export default {
     },
   },
   mounted() {
-    this.init(); // Fetch device list when the component is mounted
-    this.dhInstance.on(
-      'updateTimeStamp',
-      throttle((e) => {
-        this.playCurrentTime = Math.floor(
-          (dayjs(e.timestamp * 1000) - this.startSecs) / 1000,
-        );
-      }, 500),
-    );
   },
   beforeDestroy() {
     this.dhInstance.off('updateTimeStamp');
     this.dhInstance.destroy();
   },
   methods: {
+    login() {
+      this.init(); // Fetch device list when the component is mounted
+      this.dhInstance.on(
+        'updateTimeStamp',
+        throttle((e) => {
+          this.playCurrentTime = Math.floor(
+            (dayjs(e.timestamp * 1000) - this.startSecs) / 1000,
+          );
+        }, 500),
+      );
+    },
     async init() {
       this.dhInstance
         .Login({
