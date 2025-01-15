@@ -94,6 +94,12 @@ export const constantRoutes = [
         name: "DemoNotice",
         meta: { title: "消息通知", icon: "file" },
       },
+      {
+        path: "design",
+        component: () => import("@/views/demo/design/index.vue"),
+        name: "DemoDesign",
+        meta: { title: "设计器", icon: "file" },
+      },
     ],
     meta: { title: "公共组件", icon: "file" },
   },
