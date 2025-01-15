@@ -47,7 +47,7 @@ export default {
             this.observeParentWidth()
         })
     },
-    beforeDestroy() {
+    beforeUnmounted() {
         this.resizeObserver.disconnect()
     },
     render() {

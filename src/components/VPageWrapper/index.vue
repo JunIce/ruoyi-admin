@@ -20,7 +20,7 @@ export default {
         // this.init()
         this.observeHeight()
     },
-    beforeDestroy() {
+    beforeUnmounted() {
         this.unobserveHeight()
     },
     methods: {

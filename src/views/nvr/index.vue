@@ -111,7 +111,7 @@ export default {
   },
   mounted() {
   },
-  beforeDestroy() {
+  beforeUnmounted() {
     this.dhInstance.off('updateTimeStamp');
     this.dhInstance.destroy();
   },
