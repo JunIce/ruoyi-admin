@@ -1,44 +1,50 @@
 <template>
   <div class="login">
-    <div class="background">
-      <div class="shape"></div>
-      <div class="shape"></div>
-    </div>
-    <el-form ref="loginRef" :model="loginForm" :rules="loginRules" class="login-form">
-      <h3 class="title">{{ $t("login.title1") }}</h3>
-      <el-form-item prop="username">
-        <el-input v-model="loginForm.username" type="text" size="large" auto-complete="off"
-          :placeholder="$t('login.username')">
-          <template #prefix><svg-icon icon-class="user" class="el-input__icon input-icon" /></template>
-        </el-input>
-      </el-form-item>
-      <el-form-item prop="password">
-        <el-input v-model="loginForm.password" type="password" size="large" auto-complete="off"
-          :placeholder="$t('login.password')" @keyup.enter="handleLogin" show-password>
-          <template #prefix><svg-icon icon-class="password" class="el-input__icon input-icon" /></template>
-        </el-input>
-      </el-form-item>
-      <el-form-item prop="code" v-if="captchaEnabled">
-        <el-input v-model="loginForm.code" size="large" auto-complete="off" :placeholder="$t('login.code')"
-          style="width: 63%" @keyup.enter="handleLogin">
-          <template #prefix><svg-icon icon-class="validCode" class="el-input__icon input-icon" /></template>
-        </el-input>
-        <div class="login-code">
-          <img :src="codeUrl" @click="getCode" class="login-code-img" />
+    <el-row class="w-full h-full">
+      <el-col :span="17">
+        <div class="logo h-full">
+          <img src="@/assets/images/login-security.svg" class="logo-image" />
         </div>
-      </el-form-item>
-      <el-checkbox v-model="loginForm.rememberMe" style="margin:0px 0px 25px 0px;">{{ $t("login.remember")
-        }}</el-checkbox>
-      <el-form-item style="width:100%;">
-        <el-button :loading="loading" size="large" type="primary" style="width:100%;" @click.prevent="handleLogin">
-          <span v-if="!loading">{{ $t("login.title") }}</span>
-          <span v-else>{{ $t("login.loading") }}</span>
-        </el-button>
-        <div style="float: right;" v-if="register">
-          <router-link class="link-type" :to="'/register'">{{ $t("login.register") }}</router-link>
-        </div>
-      </el-form-item>
-    </el-form>
+      </el-col>
+      <el-col :span="7" class="side h-full">
+        <el-form ref="loginRef" :model="loginForm" :rules="loginRules" class="login-form" label-position="top">
+          <h3 class="title">{{ $t("login.title1") }}</h3>
+          <el-form-item label="用户名" prop="username">
+            <el-input v-model="loginForm.username" type="text" size="large" auto-complete="off"
+              :placeholder="$t('login.username')">
+              <template #prefix><svg-icon icon-class="user" class="el-input__icon input-icon" /></template>
+            </el-input>
+          </el-form-item>
+          <el-form-item label="密码" prop="password">
+            <el-input v-model="loginForm.password" type="password" size="large" auto-complete="off"
+              :placeholder="$t('login.password')" @keyup.enter="handleLogin" show-password>
+              <template #prefix><svg-icon icon-class="password" class="el-input__icon input-icon" /></template>
+            </el-input>
+          </el-form-item>
+          <el-form-item prop="code" v-if="captchaEnabled">
+            <el-input v-model="loginForm.code" size="large" auto-complete="off" :placeholder="$t('login.code')"
+              style="width: 63%" @keyup.enter="handleLogin">
+              <template #prefix><svg-icon icon-class="validCode" class="el-input__icon input-icon" /></template>
+            </el-input>
+            <div class="login-code">
+              <img :src="codeUrl" @click="getCode" class="login-code-img" />
+            </div>
+          </el-form-item>
+          <el-checkbox v-model="loginForm.rememberMe" style="margin:0px 0px 25px 0px;">{{ $t("login.remember")
+          }}</el-checkbox>
+          <el-form-item style="width:100%;">
+            <el-button :loading="loading" size="large" type="primary" style="width:100%;" @click.prevent="handleLogin">
+              <span v-if="!loading">{{ $t("login.title") }}</span>
+              <span v-else>{{ $t("login.loading") }}</span>
+            </el-button>
+            <div style="float: right;" v-if="register">
+              <router-link class="link-type" :to="'/register'">{{ $t("login.register") }}</router-link>
+            </div>
+          </el-form-item>
+        </el-form>
+      </el-col>
+
+    </el-row>
     <!--  底部  -->
     <div class="el-login-footer">
       <span>{{ $t("login.copyright") }}</span>
@@ -147,29 +153,53 @@ getCookie();
 <style lang='scss' scoped>
 .login {
   display: flex;
-  justify-content: center;
+  // justify-content: center;
   align-items: center;
   height: 100%;
-  background-color: #080710;
+  background-color: #fff;
+
+  &::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: .3;
+    background: radial-gradient(#d2f1df, #d3d7fa, #bad8f4) 0 0 / 400% 400%;
+    animation: 15sease 0s infinite normal none running gradient;
+  }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .logo-image {
+    width: 500px;
+    height: auto;
+  }
+}
+
+.side {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .title {
   margin: 0px auto 30px auto;
   text-align: center;
-  color: #dddddd;
+  color: #333;
 }
 
 .login-form {
-  border-radius: 6px;
-  background-color: rgba(255, 255, 255, 0.13);
-  backdrop-filter: blur(10px);
   width: 400px;
-  padding: 25px 25px 5px 25px;
-  box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
 
   form * {
     font-family: 'Poppins', sans-serif;
-    color: #ffffff;
+    color: #333;
     letter-spacing: 0.5px;
     outline: none;
     border: none;
@@ -193,7 +223,7 @@ getCookie();
 .login-tip {
   font-size: 13px;
   text-align: center;
-  color: #bfbfbf;
+  color: #333;
 }
 
 .login-code {
