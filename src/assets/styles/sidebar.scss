@@ -1,4 +1,4 @@
-$menu-active-color: #D91656;
+$menu-active-color: #d91656;
 #app {
   .main-container {
     height: 100%;
@@ -24,9 +24,8 @@ $menu-active-color: #D91656;
     left: 0;
     z-index: 1001;
     overflow: hidden;
-    -webkit-box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
-    box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
-
+    border-right: 1px solid #ebeef5;
+    padding-left: 10px;
     // reset element-ui css
     .horizontal-collapse-transition {
       transition: 0s width ease-in-out, 0s padding-left ease-in-out,
@@ -68,7 +67,7 @@ $menu-active-color: #D91656;
     .el-menu {
       border: none;
       height: 100%;
-      width: 100% !important;
+      padding-right: 10px;
     }
 
     .el-menu-item,
@@ -86,33 +85,38 @@ $menu-active-color: #D91656;
     .sub-menu-title-noDropdown,
     .el-sub-menu__title {
       &:hover {
-        background-color: rgba(0, 0, 0, 0.06) !important;
+        color: $base-menu-text-color;
+        background-color: $base-sub-menu-hover !important;
       }
-    }
-
-    & .theme-dark .is-active > .el-sub-menu__title {
-      color: $base-menu-color-active !important;
     }
 
     & .nest-menu .el-sub-menu > .el-sub-menu__title,
-    & .el-sub-menu .el-menu-item {
-      min-width: $base-sidebar-width !important;
-
+    & .el-sub-menu .el-menu-item,
+    & .submenu-title-noDropdown {
       &:hover {
-        background-color: rgba(0, 0, 0, 0.06) !important;
+        color: $base-menu-text-color;
+        background-color: $base-sub-menu-hover !important;
+        border-radius: 8px;
       }
     }
 
-    & .theme-dark .nest-menu .el-sub-menu > .el-sub-menu__title,
-    & .theme-dark .el-sub-menu .el-menu-item {
-      background-color: $base-sub-menu-background !important;
+    & .el-menu-item,
+    .el-sub-menu__title,
+    & .submenu-title-noDropdown {
+      padding-left: 10px;
 
       &.is-active {
-        background-color: $base-sub-menu-hover !important;
-        border-left: 3px solid $menu-active-color !important;
+        background-color: $base-menu-text-color;
+        color: $base-menu-color-active;
+        border-radius: 8px;
       }
+    }
+
+    & .el-sub-menu__title {
       &:hover {
+        color: $base-menu-text-color;
         background-color: $base-sub-menu-hover !important;
+        border-radius: 8px;
       }
     }
   }
