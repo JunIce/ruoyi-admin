@@ -1,6 +1,12 @@
-import { join, resolve } from "path";
+import { join, resolve, dirname } from "path";
 import { appendFileSync, writeFile } from "fs";
 import { exec } from "child_process";
+import { fileURLToPath } from "url";
+// 获取当前文件的路径
+const __filename = fileURLToPath(import.meta.url);
+// 获取当前文件所在目录的路径
+const __dirname = dirname(__filename);
+
 const TARGET_FILE = join(__dirname, "../dist/index.html");
 
 try {
