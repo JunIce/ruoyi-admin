@@ -36,6 +36,12 @@ type SysUserVo struct {
 	Roles []SysRole `gorm:"many2many:sys_user_role;joinForeignKey:UserID;joinReferences:RoleID;" json:"roles"` // 用户与角色关联表
 }
 
+type SysUserAdd struct {
+	SysUser
+	Roles   []int64 `gorm:"-" json:"roles"`   // 角色ID
+	PostIds []int64 `gorm:"-" json:"postIds"` // 岗位ID
+}
+
 // 映射数据表
 func (e *SysUser) TableName() string {
 	return "sys_user"

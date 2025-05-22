@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"os"
 	"runtime/debug"
+	"time"
 	v1 "wms-server/v1/controller/v1"
 
 	"github.com/gofiber/fiber/v2"
@@ -59,6 +60,9 @@ func main() {
 		SkipInitializeWithVersion: false, // auto configure based on currently MySQL version
 	}), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Info), // Log level
+		NowFunc: func() time.Time {
+			return time.Now().In(time.FixedZone("CST", 8*3600)) // 或者使用 time.LoadLocation("Asia/Shanghai")
+		},
 	})
 
 	if err != nil {
@@ -91,6 +95,11 @@ func main() {
 	app.Get("/captcha/:id.png", system.CaptchaImageHandler)
 	app.Get("/getInfo", v1Controller.GetInfo)
 	app.Get("/system/user/list", v1Controller.GetUserList)
+	app.Get("/system/user/deptTree", v1Controller.GetDeptTree)
+	app.Get("/system/user/:id", v1Controller.GetUserByID)
+	app.Post("/system/user", v1Controller.PostUser)
+	app.Put("/system/user", v1Controller.UpdateUser)
+	app.Delete("/system/user/:id", v1Controller.DeleteUser)
 
 	log.Info("Server is running on port :3000")
 	if err := app.Listen(":3000"); err != nil {
