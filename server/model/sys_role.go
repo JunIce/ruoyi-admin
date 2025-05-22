@@ -36,6 +36,15 @@ type SysRole struct {
 	Remark string `gorm:"column:remark;size:500" json:"remark"`
 }
 
+type SysRoleVo struct {
+	SysRole
+}
+
+type SysRoleAdd struct {
+	SysRole
+	MenuIds []int64 `gorm:"-" json:"menuIds"` // 菜单ID
+}
+
 // TableName specifies the table name for GORM
 func (*SysRole) TableName() string {
 	return "sys_role"

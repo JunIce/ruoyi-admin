@@ -101,6 +101,12 @@ func main() {
 	app.Put("/system/user", v1Controller.UpdateUser)
 	app.Delete("/system/user/:id", v1Controller.DeleteUser)
 
+	app.Get("/system/role/list", v1Controller.GetRoleList)
+	app.Get("/system/role/:id", v1Controller.GetRoleByID)
+	app.Post("/system/role", v1Controller.PostRole)
+	app.Put("/system/role", v1Controller.UpdateRole)
+	app.Delete("/system/role/:id", v1Controller.DeleteRole)
+
 	log.Info("Server is running on port :3000")
 	if err := app.Listen(":3000"); err != nil {
 		log.Fatal(err)

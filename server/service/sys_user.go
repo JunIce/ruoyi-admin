@@ -41,8 +41,8 @@ func (s UserService) GetUserList(req *UserListReq) ([]model.SysUserVo, int64, er
 		queryBuilder = queryBuilder.Where("dept_id = ?", req.DeptID)
 	}
 
-	result := queryBuilder.Limit(req.PageSize).Offset((req.PageNum - 1) * req.PageSize).Omit("Password").Find(&userList)
 	queryBuilder.Count(&total)
+	result := queryBuilder.Limit(req.PageSize).Offset((req.PageNum - 1) * req.PageSize).Omit("Password").Find(&userList)
 
 	if result.Error != nil {
 		// 处理错误
