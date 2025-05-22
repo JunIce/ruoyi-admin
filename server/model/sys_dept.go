@@ -21,6 +21,14 @@ type SysDept struct {
 	UpdateBy   string     `gorm:"column:update_by;size:64;default:''" json:"updateBy"`   // 更新者
 	UpdateTime *time.Time `gorm:"column:update_time" json:"updateTime,omitempty"`        // 更新时间
 }
+type SysDeptVo struct {
+	SysDept
+}
+
+type SysDeptAdd struct {
+	SysDept
+	MenuIds []int64 `gorm:"-" json:"menuIds"` // 菜单ID
+}
 
 // 映射数据表
 func (e *SysDept) TableName() string {
