@@ -11,14 +11,14 @@ type SysMenu struct {
 	ParentID   int64      `gorm:"column:parent_id;default:0" json:"parentId"`            // 父菜单ID
 	OrderNum   int        `gorm:"column:order_num;default:0" json:"orderNum"`            // 显示顺序
 	Path       string     `gorm:"column:path;size:200;default:''" json:"path"`           // 路由地址
-	Component  *string    `gorm:"column:component;size:255" json:"component,omitempty"`  // 组件路径
-	Query      *string    `gorm:"column:query;size:255" json:"query,omitempty"`          // 路由参数
+	Component  string     `gorm:"column:component;size:255" json:"component,omitempty"`  // 组件路径
+	Query      string     `gorm:"column:query;size:255" json:"query,omitempty"`          // 路由参数
 	IsFrame    int        `gorm:"column:is_frame;default:1" json:"isFrame"`              // 是否为外链（0是 1否）
 	IsCache    int        `gorm:"column:is_cache;default:0" json:"isCache"`              // 是否缓存（0缓存 1不缓存）
 	MenuType   string     `gorm:"column:menu_type;size:1;default:''" json:"menuType"`    // 菜单类型（M目录 C菜单 F按钮）
 	Visible    string     `gorm:"column:visible;size:1;default:'0'" json:"visible"`      // 菜单状态（0显示 1隐藏）
 	Status     string     `gorm:"column:status;size:1;default:'0'" json:"status"`        // 菜单状态（0正常 1停用）
-	Perms      *string    `gorm:"column:perms;size:100" json:"perms,omitempty"`          // 权限标识
+	Perms      string     `gorm:"column:perms;size:100" json:"perms,omitempty"`          // 权限标识
 	Icon       string     `gorm:"column:icon;size:100;default:'#'" json:"icon"`          // 菜单图标
 	CreateBy   string     `gorm:"column:create_by;size:64;default:''" json:"createBy"`   // 创建者
 	CreateTime *time.Time `gorm:"column:create_time" json:"createTime,omitempty"`        // 创建时间
@@ -31,4 +31,22 @@ type SysMenu struct {
 // 映射数据表
 func (e *SysMenu) TableName() string {
 	return "sys_menu"
+}
+
+type SysMenuRouteVo struct {
+	Name       string           `json:"name"`
+	Path       string           `json:"path"`
+	Hidden     bool             `json:"hidden"`
+	Redirect   string           `json:"redirect,omitempty"`
+	Component  string           `json:"component"`
+	AlwaysShow bool             `json:"alwaysShow"`
+	Meta       Meta             `json:"meta"`
+	Children   []SysMenuRouteVo `json:"children,omitempty"`
+}
+
+type Meta struct {
+	Title   string `json:"title"`
+	Icon    string `json:"icon"`
+	NoCache bool   `json:"noCache"`
+	Link    string `json:"link,omitempty"`
 }

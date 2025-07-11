@@ -29,7 +29,7 @@ func init() {
 	case "local":
 		err = godotenv.Load(".env.local")
 	default:
-		err = godotenv.Load(".env.development")
+		err = godotenv.Load(".env.local")
 	}
 
 	if err != nil {
@@ -93,6 +93,7 @@ func main() {
 
 	app.Get("/captcha", system.GenerateCaptchaHandler)
 	app.Get("/captcha/:id.png", system.CaptchaImageHandler)
+	app.Get("/getRouters", v1Controller.GetRouters)
 	app.Get("/getInfo", v1Controller.GetInfo)
 	app.Get("/system/user/list", v1Controller.GetUserList)
 	app.Get("/system/user/deptTree", v1Controller.GetDeptTree)
@@ -106,6 +107,12 @@ func main() {
 	app.Post("/system/role", v1Controller.PostRole)
 	app.Put("/system/role", v1Controller.UpdateRole)
 	app.Delete("/system/role/:id", v1Controller.DeleteRole)
+
+	app.Get("/system/menu/list", v1Controller.GetMenuList)
+	app.Get("/system/menu/:id", v1Controller.GetMenuByID)
+	app.Post("/system/menu", v1Controller.PostMenu)
+	app.Put("/system/menu", v1Controller.UpdateMenu)
+	app.Delete("/system/menu/:id", v1Controller.DeleteMenu)
 
 	log.Info("Server is running on port :3000")
 	if err := app.Listen(":3000"); err != nil {
